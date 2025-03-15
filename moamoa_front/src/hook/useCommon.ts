@@ -1,7 +1,6 @@
 import {UseMutationOptions, UseMutationResult, useQuery, UseQueryResult} from "@tanstack/react-query";
 import {container} from "tsyringe";
 import {HttpTypes} from "../utils/HttpTypes.ts";
-import Swal from "sweetalert2";
 
 
 export type DEFAULT_MUTATE_TYPE = UseMutationResult<any, Error, any, unknown>;
@@ -45,28 +44,4 @@ export function useRepositoryQuery<T, R>(
 export const errorHandler = (error: HttpTypes) => {
     console.error(error);
 
-    if (error.httpStatus !== 401) {
-        let errorMessage = `<p>${error.message}</p>`;
-
-        if (error.validation) {
-            const validationMessages = Object.entries(error.validation)
-                .map(([field, messages]) => `<strong>${field}:</strong> ${messages.join(', ')}`)
-                .join("<br>");
-            errorMessage += `<hr><p>${validationMessages}</p>`;
-
-            Swal.fire({
-                title: "유효성 검사 실패",
-                html: errorMessage,
-                icon: "error",
-                confirmButtonText: "OK"
-            });
-        } else {
-            Swal.fire({
-                title: "Error",
-                html: errorMessage,
-                icon: "error",
-                confirmButtonText: "OK"
-            });
-        }
-    }
 }

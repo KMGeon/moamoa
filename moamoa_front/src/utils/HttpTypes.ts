@@ -1,8 +1,7 @@
 export class HttpTypes extends Error {
   constructor(
-    public httpStatus?: number,
+    public code?: string,
     message?: string,
-    public validation?: Record<string, string[]>
   ) {
     super(message);
     this.name = 'HttpTypes';

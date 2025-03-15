@@ -31,7 +31,6 @@ export class HttpClient {
                 const httpError = new HttpTypes(
                     response?.status,
                     response?.data?.message || error.message,
-                    response?.data?.validation
                 );
                 return Promise.reject(httpError);
             }
@@ -69,7 +68,7 @@ export class HttpClient {
             if (error instanceof HttpTypes) {
                 throw error;
             }
-            throw new HttpTypes(500, '서버 오류가 발생했습니다.');
+            throw new HttpTypes("500", '서버 오류가 발생했습니다.');
         }
     }
 
