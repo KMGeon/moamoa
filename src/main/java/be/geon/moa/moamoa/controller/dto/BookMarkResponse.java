@@ -5,17 +5,21 @@ import lombok.Builder;
 
 import java.time.LocalDateTime;
 
+import static be.geon.moa.moamoa.utils.Utils.formatLocalDateTime;
+
 @Builder
 public record BookMarkResponse (
         String bookmarkUid,
         String url,
-        LocalDateTime createdAt
+        String category,
+        String createdAt
 ){
     public static BookMarkResponse from(Bookmark bookmark) {
         return BookMarkResponse.builder()
                 .bookmarkUid(bookmark.getBookmarkUid().toString())
                 .url(bookmark.getUrl())
-                .createdAt(bookmark.getCreatedAt())
+                .category(bookmark.getCategory().name())
+                .createdAt(formatLocalDateTime(bookmark.getCreatedAt()))
                 .build();
     }
 }
