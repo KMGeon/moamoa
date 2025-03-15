@@ -12,6 +12,8 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.StreamSupport;
@@ -195,6 +197,12 @@ public class Utils {
         } catch (Exception e) {
             throw new RuntimeException("복호화 오류", e);
         }
+
+    }
+
+    public static String formatLocalDateTime(LocalDateTime dateTime) {
+        if (dateTime == null) return "";
+        return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
 }
