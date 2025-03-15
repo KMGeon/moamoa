@@ -1,17 +1,17 @@
-import React from 'react';
-import { Box, Typography } from '@mui/material';
+import LoadingHandler from "../components/LoadingHandlerProps.tsx";
+import {useGetAllBookmarks} from "../hook/api/useBookmark.ts";
 
-const BookmarkPage: React.FC = () => {
+
+export default function BookmarkPage() {
+    const {data, isLoading} = useGetAllBookmarks();
+    console.log(data);
+
     return (
-        <Box>
-            <Typography variant="h6" gutterBottom>
-                북마크
-            </Typography>
-            <Typography variant="body1">
-                북마크한 컨텐츠가 여기에 표시됩니다.
-            </Typography>
-        </Box>
+        <LoadingHandler isLoading={isLoading} fallback={<div>Loading...</div>}>
+            <div>
+                1
+            </div>
+        </LoadingHandler>
     );
-};
+}
 
-export default BookmarkPage; 

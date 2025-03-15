@@ -9,5 +9,5 @@
 const BASE_URL = "http://localhost:8080";
 
 export const URL = {
-    test: `${BASE_URL}/test`,
+    bookmark: `${BASE_URL}/bookmark`,
 }

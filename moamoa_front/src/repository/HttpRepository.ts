@@ -1,5 +1,7 @@
-import {HttpClient} from "../utils/HttpClient.ts";
-import {inject, singleton} from "tsyringe";
+// src/repositories/HttpRepository.ts
+import { HttpClient } from "../utils/HttpClient.ts";
+import { inject, singleton } from "tsyringe";
+import {ApiResponse} from "../model/ApiResponse.ts";
 
 @singleton()
 class HttpRepository {
@@ -12,7 +14,7 @@ class HttpRepository {
     async getData<T>({url, params}: {
         url: string;
         params?: Record<string, unknown>;
-    }): Promise<T> {
+    }): Promise<ApiResponse<T>> {
         return this.httpClient.getData<T>(url, params);
     }
 
@@ -20,7 +22,7 @@ class HttpRepository {
         url: string;
         data: D;
         params?: Record<string, unknown>;
-    }): Promise<T> {
+    }): Promise<ApiResponse<T>> {
         return this.httpClient.postData<T>(url, data, params);
     }
 
@@ -28,7 +30,7 @@ class HttpRepository {
         url: string;
         data: D;
         params?: Record<string, unknown>;
-    }): Promise<T> {
+    }): Promise<ApiResponse<T>> {
         const processedData = data != null ? this.ensureRecord(data) : null;
         return this.httpClient.patchData<T>(url, processedData, params);
     }
@@ -37,7 +39,7 @@ class HttpRepository {
         url: string;
         data?: Record<string, unknown>;
         params?: Record<string, unknown>;
-    }): Promise<T> {
+    }): Promise<ApiResponse<T>> {
         const processedData = data ? this.ensureRecord(data) : undefined;
         return this.httpClient.deleteData<T>(url, processedData, params);
     }
