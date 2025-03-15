@@ -15,7 +15,6 @@ public class BookMarkService {
 
     private final BookMarkRepository bookMarkRepository;
 
-
     @Transactional
     public Bookmark createBookmark(String url, String category) {
         Bookmark bookmark = Bookmark.createBookmark(url, category);
@@ -28,6 +27,4 @@ public class BookMarkService {
                 .map(BookMarkResponse::from)
                 .toList();
     }
-
-
 }

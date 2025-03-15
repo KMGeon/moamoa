@@ -1,6 +1,6 @@
 package be.geon.moa.moamoa.controller;
 
-import be.geon.moa.moamoa.ApiResponse;
+import be.geon.moa.moamoa.common.ApiResponse;
 import be.geon.moa.moamoa.common.BookMarkAbstractException;
 import be.geon.moa.moamoa.common.InvalidURLException;
 import be.geon.moa.moamoa.common.NotFoundCategoryException;
@@ -8,7 +8,6 @@ import be.geon.moa.moamoa.config.ErrorCode;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.ServletRequestBindingException;

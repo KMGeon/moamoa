@@ -1,4 +1,4 @@
-package be.geon.moa.moamoa;
+package be.geon.moa.moamoa.common;
 
 import be.geon.moa.moamoa.config.ErrorCode;
 import lombok.*;

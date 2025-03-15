@@ -13,7 +13,7 @@ public enum ErrorCode {
     NOT_FOUND_CATEGORY("B001", "카테고리가 존재하지 않습니다"),
     INVALID_URL("B002", "유효하지 않은 URL 형식입니다: "),
 
-    // Validation
+    // Validation/
     VALIDATION_EXCEPTION("V001", "유효성 검증에 실패했습니다"),
     METHOD_NOT_ALLOWED_EXCEPTION("V002", "지원하지 않는 HTTP 메서드입니다"),
     UNSUPPORTED_MEDIA_TYPE("V003", "지원하지 않는 미디어 타입입니다"),

@@ -1,4 +1,4 @@
-package be.geon.moa.moamoa;
+package be.geon.moa.moamoa.config;
 
 import be.geon.moa.moamoa.domain.Bookmark;
 import be.geon.moa.moamoa.domain.BookmarkCategory;
@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Profile;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Configuration
 @RequiredArgsConstructor
