@@ -7,7 +7,6 @@ import be.geon.moa.moamoa.controller.dto.CreateBmarkReqest;
 import be.geon.moa.moamoa.domain.Bookmark;
 import be.geon.moa.moamoa.service.BookMarkService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
