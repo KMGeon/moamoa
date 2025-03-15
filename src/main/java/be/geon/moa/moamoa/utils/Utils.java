@@ -5,12 +5,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.StreamSupport;
 
@@ -19,6 +21,17 @@ public class Utils {
 
     private static final ObjectMapper mapper = new ObjectMapper()
             .configure(DeserializationFeature.USE_LONG_FOR_INTS, true);
+
+    private static final byte[] IV = {
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    };
+
+
+//    @Value("#{moa.secret}")
+//    private String SECRET_KEY;
+    private static final String SECRET_KEY = "ABCDEFGH12345678";
+
 
     /**
      * Iterable 컬렉션에서 null이 아닌 요소들의 합을 계산합니다.
@@ -148,4 +161,40 @@ public class Utils {
             return String.format("Failed to convert object: %s", e.getMessage());
         }
     }
+
+
+    public static String encrypt(String plainText) {
+        try {
+            SecretKeySpec keySpec = new SecretKeySpec(
+                    SECRET_KEY.getBytes(StandardCharsets.UTF_8), "AES");
+            IvParameterSpec ivSpec = new IvParameterSpec(IV);
+
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec);
+
+            byte[] encrypted = cipher.doFinal(plainText.getBytes(StandardCharsets.UTF_8));
+            return Base64.getEncoder().encodeToString(encrypted);
+
+        } catch (Exception e) {
+            throw new RuntimeException("암호화 오류", e);
+        }
+    }
+
+    public static String decrypt(String encrypted) {
+        try {
+            SecretKeySpec keySpec = new SecretKeySpec(
+                    SECRET_KEY.getBytes(StandardCharsets.UTF_8), "AES");
+            IvParameterSpec ivSpec = new IvParameterSpec(IV);
+
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec);
+
+            byte[] original = cipher.doFinal(Base64.getDecoder().decode(encrypted));
+            return new String(original, StandardCharsets.UTF_8);
+
+        } catch (Exception e) {
+            throw new RuntimeException("복호화 오류", e);
+        }
+    }
+
 }
